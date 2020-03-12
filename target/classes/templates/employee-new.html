@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	  xmlns:with="http://www.thymeleaf.org/extras/with"
+      layout:decorate="~{layout}"
+      with:title="${title}">
+<th:block layout:fragment="content">
+	<div class="container pt-3">
+		<div class="row justify-content-sm-center">
+    		<div class="col-sm-2 col-md-8">	
+				<th:block th:fragment="form">
+	                <form th:action="@{/employee/new}" th:object="${employee}" method="post">
+	                    <div class="form-group">
+	                        <label class="control-label" th:for="firstName">First Name</label>
+	                        <input class="form-control" th:field="*{firstName}" type="text"/>
+	                    </div> 
+	                    <div class="form-group">
+	                        <label class="control-label" th:for="lastName">Last Name</label>
+	                        <input class="form-control" th:field="*{lastName}" type="text"/>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="control-label" th:for="department.id">Department</label>
+	                    	<select class="form-control" th:field="*{department.id}">
+							    <option th:each="department : ${departments}" 
+							    		th:value="${department.id}" 
+							    		th:text="${department.name}"></option>
+							</select>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="control-label" th:for="managerId">Manager</label>
+	                    	<select class="form-control" th:field="*{managerId}">
+	                    		<option value="-1">None</option>
+							    <option th:each="manager : ${managers}" 
+							    		th:value="${manager.id}" 
+							    		th:text="${manager.fullName}"></option>
+							</select>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="control-label" th:for="role.id">Role</label>
+	                    	<select class="form-control" th:field="*{role.id}">
+							    <option th:each="role : ${roles}" 
+							    		th:value="${role.id}" 
+							    		th:text="${role.type}"></option>
+							</select>
+	                    </div>
+	                    <div class="form-group">
+	                        <label class="control-label" th:for="vacation">Vacation Yearly Entitlement</label>
+	                        <input class="form-control" th:field="*{vacation}" type="text"/>
+	                    </div>  
+	                    <div class="form-group">
+	                        <label class="control-label" th:for="salary">Yearly Salary</label>
+	                        <input class="form-control" th:field="*{salary}" type="text"/>
+	                    </div>  
+	                    <div class="form-group">
+	                        <label class="control-label" th:for="bonus">Yearly Bonus</label>
+	                        <input class="form-control" th:field="*{bonus}" type="text"/>
+	                    </div>                  
+	                    <div class="form-group submit-cancel">
+	                        <input class="btn btn-primary" type="submit" value="Save changes"/>
+	                        <a class="btn btn-default btn-cancel" th:href="@{/redirect}">Cancel</a>
+	                    </div>
+	                </form>
+	            </th:block>
+	        </div>
+        </div>
+    </div>
+</th:block>

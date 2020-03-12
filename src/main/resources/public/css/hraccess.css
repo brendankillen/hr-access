@@ -1,0 +1,29 @@
+
+.inline 
+{
+	display: inline;
+}
+
+.link-button 
+{
+	background: none;
+  	border: none;
+  	color: #007bff;
+  	cursor: pointer;
+}
+
+.link-button:hover 
+{
+	text-decoration: underline;
+	color: #31708f;
+}
+
+.link-button:focus 
+{
+  	outline: none;
+}
+
+.link-button:active 
+{
+	color:red;
+}
