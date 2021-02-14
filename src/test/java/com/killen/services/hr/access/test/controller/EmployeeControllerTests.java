@@ -29,9 +29,9 @@ import com.killen.services.hr.access.controller.EmployeeController;
 import com.killen.services.hr.access.entity.Employee;
 import com.killen.services.hr.access.exception.EmployeeCreateException;
 import com.killen.services.hr.access.exception.EmployeeDeleteException;
-import com.killen.services.hr.access.repository.DepartmentRepository;
-import com.killen.services.hr.access.repository.EmployeeRepository;
-import com.killen.services.hr.access.repository.RoleRepository;
+import com.killen.services.hr.access.repository.IDepartmentRepository;
+import com.killen.services.hr.access.repository.IEmployeeRepository;
+import com.killen.services.hr.access.repository.IRoleRepository;
 import com.killen.services.hr.access.service.EmployeeService;
 import com.killen.services.hr.access.test.EmployeeTestData;
 
@@ -48,13 +48,13 @@ public class EmployeeControllerTests
 	private EmployeeService employeeService;
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	
 	@Autowired
-	private DepartmentRepository departmentRepository;
+	private IDepartmentRepository departmentRepository;
 	
 	@Autowired
-	private RoleRepository roleRepository;
+	private IRoleRepository roleRepository;
 	
     private MockMvc mockMvc;
  

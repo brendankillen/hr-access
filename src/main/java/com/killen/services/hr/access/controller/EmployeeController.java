@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -72,11 +71,15 @@ public class EmployeeController
 	public static final String VIEW_HR = "hr";
 	public static final String VIEW_ADMIN = "admin";
 	
-	@Autowired
-    private IAuthenticationFacade authenticationFacade;
 	
-	@Autowired
+    private IAuthenticationFacade authenticationFacade;	
 	EmployeeService employeeService;
+	
+	public EmployeeController(IAuthenticationFacade authenticationFacade, EmployeeService employeeService)
+	{
+		this.authenticationFacade = authenticationFacade;
+		this.employeeService = employeeService;
+	}
 	
 	@LogExecutionTime
 	@RequestMapping(value = {"/", URL_REDIRECT}, method = RequestMethod.GET)

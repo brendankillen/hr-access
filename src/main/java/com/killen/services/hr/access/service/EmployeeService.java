@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,11 +26,11 @@ import com.killen.services.hr.access.exception.EmployeeUpdateException;
 import com.killen.services.hr.access.exception.RoleRetrievalException;
 import com.killen.services.hr.access.exception.UserInvalidException;
 import com.killen.services.hr.access.exception.UserRetrievalException;
-import com.killen.services.hr.access.repository.DepartmentRepository;
-import com.killen.services.hr.access.repository.EmployeeRepository;
-import com.killen.services.hr.access.repository.FinanceRepository;
-import com.killen.services.hr.access.repository.RoleRepository;
-import com.killen.services.hr.access.repository.UserRepository;
+import com.killen.services.hr.access.repository.IDepartmentRepository;
+import com.killen.services.hr.access.repository.IEmployeeRepository;
+import com.killen.services.hr.access.repository.IFinanceRepository;
+import com.killen.services.hr.access.repository.IRoleRepository;
+import com.killen.services.hr.access.repository.IUserRepository;
 
 
 /**
@@ -56,23 +55,28 @@ public class EmployeeService
 	@Value("${user.default.password}")
 	private String defaultPassword;
 	
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	
-	@Autowired
-	private FinanceRepository financeRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private DepartmentRepository departmentRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
+	private IEmployeeRepository employeeRepository;
+	private IFinanceRepository financeRepository;
+	private IRoleRepository roleRepository;	
+	private IDepartmentRepository departmentRepository;
+	private IUserRepository userRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public EmployeeService(
+			IEmployeeRepository employeeRepository,
+			IFinanceRepository financeRepository,
+			IRoleRepository roleRepository,
+			IDepartmentRepository departmentRepository,
+			IUserRepository userRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder)
+	{
+		this.employeeRepository = employeeRepository;
+		this.financeRepository = financeRepository;
+		this.roleRepository = roleRepository;
+		this.departmentRepository = departmentRepository;
+		this.userRepository = userRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 	
 	@LogExecutionTime
 	public Employee getEmployeeByUserName(String username) throws EmployeeByUserNameException

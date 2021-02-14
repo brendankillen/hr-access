@@ -11,9 +11,9 @@ import com.killen.services.hr.access.entity.Finance;
 import com.killen.services.hr.access.entity.Role;
 import com.killen.services.hr.access.exception.EmployeeCreateException;
 import com.killen.services.hr.access.exception.EmployeeDeleteException;
-import com.killen.services.hr.access.repository.DepartmentRepository;
-import com.killen.services.hr.access.repository.EmployeeRepository;
-import com.killen.services.hr.access.repository.RoleRepository;
+import com.killen.services.hr.access.repository.IDepartmentRepository;
+import com.killen.services.hr.access.repository.IEmployeeRepository;
+import com.killen.services.hr.access.repository.IRoleRepository;
 import com.killen.services.hr.access.service.EmployeeService;
 
 
@@ -22,14 +22,9 @@ public class EmployeeTestData
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	
-	@Autowired
-	private DepartmentRepository departmentRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
+	private IEmployeeRepository employeeRepository;
+	private IDepartmentRepository departmentRepository;
+	private IRoleRepository roleRepository;
 	
 	private Employee hrManager = null;
 	private Employee itManager = null;
@@ -44,9 +39,9 @@ public class EmployeeTestData
 	List<Employee> itEmployeeList = new ArrayList<>();
 	
 	public EmployeeTestData(EmployeeService employeeService,
-							EmployeeRepository employeeRepository,
-							DepartmentRepository departmentRepository,
-							RoleRepository roleRepository) throws EmployeeCreateException
+							IEmployeeRepository employeeRepository,
+							IDepartmentRepository departmentRepository,
+							IRoleRepository roleRepository) throws EmployeeCreateException
 	{
 		this.employeeService = employeeService;
 		this.employeeRepository = employeeRepository;

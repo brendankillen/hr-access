@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.killen.services.hr.access.repository.IUserRepository;
 import com.killen.services.hr.access.service.CustomAuthenticationFailureHandler;
 import com.killen.services.hr.access.service.SecurityUserDetailsService;
 
@@ -28,14 +29,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
 	@Autowired
 	private SecurityUserDetailsService userDetailsService;
-
+	
+	@Autowired
+	private IUserRepository userRepository;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder authenticationManager) throws Exception 
 	{
 		authenticationManager.authenticationProvider(authenticationProvider());
 	}
 	
-	@Bean(name = "userDetailsService")
+	@Override
+	@Bean()
     public UserDetailsService userDetailsService() 
 	{
 		return userDetailsService;
@@ -45,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	public DaoAuthenticationProvider authenticationProvider()
 	{
 	    DaoAuthenticationProvider authProvider= new DaoAuthenticationProvider();
+	    
 	    authProvider.setUserDetailsService(userDetailsService());
-
 	    authProvider.setPasswordEncoder(bCryptPasswordEncoder);
 	    
 	    return authProvider;
@@ -55,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Bean
     public AuthenticationFailureHandler customAuthenticationFailureHandler() 
 	{
-        return new CustomAuthenticationFailureHandler();
+        return new CustomAuthenticationFailureHandler(userRepository);
     }
 
 	@Override
@@ -74,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 												 .and()
 												 .formLogin().loginPage("/login")
 												 .defaultSuccessUrl("/redirect")
-												 //.failureHandler(customAuthenticationFailureHandler())
+												 .failureHandler(customAuthenticationFailureHandler())
 												 .and()
 												 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
 	}

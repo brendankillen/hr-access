@@ -25,9 +25,9 @@ import com.killen.services.hr.access.exception.EmployeeByUserNameException;
 import com.killen.services.hr.access.exception.EmployeeCreateException;
 import com.killen.services.hr.access.exception.EmployeeDeleteException;
 import com.killen.services.hr.access.exception.EmployeeUpdateException;
-import com.killen.services.hr.access.repository.DepartmentRepository;
-import com.killen.services.hr.access.repository.EmployeeRepository;
-import com.killen.services.hr.access.repository.RoleRepository;
+import com.killen.services.hr.access.repository.IDepartmentRepository;
+import com.killen.services.hr.access.repository.IEmployeeRepository;
+import com.killen.services.hr.access.repository.IRoleRepository;
 import com.killen.services.hr.access.service.EmployeeService;
 import com.killen.services.hr.access.test.EmployeeTestData;
 
@@ -39,13 +39,13 @@ public class EmployeeServiceTests
 	private EmployeeService employeeService;
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	
 	@Autowired
-	private DepartmentRepository departmentRepository;
+	private IDepartmentRepository departmentRepository;
 	
 	@Autowired
-	private RoleRepository roleRepository;
+	private IRoleRepository roleRepository;
 	
 	private EmployeeTestData testData;
 	
@@ -61,7 +61,7 @@ public class EmployeeServiceTests
 	@After
 	public void cleanUp() throws EmployeeDeleteException
 	{
-		testData.deleteTestData();
+		//testData.deleteTestData();
 	}
 	
 	@Test

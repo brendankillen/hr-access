@@ -13,7 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="USER", schema="HRACCESS")
+@Table(name="\"USER\"", schema="HRACCESS")
 @Getter
 @Setter
 @NoArgsConstructor

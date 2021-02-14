@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.killen.services.hr.access.entity.Employee;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Long> 
+public interface IEmployeeRepository extends JpaRepository<Employee, Long> 
 {
 	Employee findOneById(int id);
 	

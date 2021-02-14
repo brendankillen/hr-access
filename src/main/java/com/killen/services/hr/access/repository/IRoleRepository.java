@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.killen.services.hr.access.entity.Role;
 
-public interface RoleRepository extends JpaRepository<Role, Long>
+public interface IRoleRepository extends JpaRepository<Role, Long>
 {
 	Role findOneById(int roleId);
 	

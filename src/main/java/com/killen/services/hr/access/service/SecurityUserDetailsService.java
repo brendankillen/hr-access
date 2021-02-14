@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -13,24 +12,27 @@ import org.springframework.stereotype.Service;
 import com.killen.services.hr.access.entity.Employee;
 import com.killen.services.hr.access.entity.User;
 import com.killen.services.hr.access.model.SecurityUser;
-import com.killen.services.hr.access.repository.EmployeeRepository;
-import com.killen.services.hr.access.repository.UserRepository;
+import com.killen.services.hr.access.repository.IEmployeeRepository;
+import com.killen.services.hr.access.repository.IUserRepository;
 
 @Service
 public class SecurityUserDetailsService implements UserDetailsService
 {
 	private static final Logger logger = LogManager.getLogger(SecurityUserDetailsService.class);
 	
-	@Autowired
-    private UserRepository userRepository;
+	private IEmployeeRepository employeeRepository; 
+	private IUserRepository userRepository;
 	
-	@Autowired
-	private EmployeeRepository employeeRepository; 
+	public SecurityUserDetailsService(IUserRepository userRepository, IEmployeeRepository employeeRepository)
+	{
+		this.employeeRepository = employeeRepository;
+		this.userRepository = userRepository; 
+	}
 	
     @Override
     public UserDetails loadUserByUsername(String username) 
     {
-    	logger.info("Looking up user | " + username);
+    	logger.info("Looking up user by | UserName={}", username);
     	
     	List<String> authorities = new ArrayList<>();
     	
